@@ -24,8 +24,6 @@ namespace Managers {
             maxDistance = Mathf.CeilToInt((spawnPoint - endOfSlideSpace).magnitude);
 
             actualSpeed = speed / 100;
-
-            Debug.Log($"{slideSpace} {endOfSlideSpace}");
         }
 
         private void FixedUpdate() {

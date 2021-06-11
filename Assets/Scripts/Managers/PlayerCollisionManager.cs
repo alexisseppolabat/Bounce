@@ -121,7 +121,7 @@ namespace Managers  {
                             2 * PlayerMovementManager.GRAVITY,
                             0
                         );
-                        if (distanceFromTopBrim >= 0) buoyancyForce.y -= (8f/21f) * distanceFromTopBrim;
+                        if (distanceFromTopBrim >= 0) buoyancyForce.y -= 10 * distanceFromTopBrim;
                         playerBody.AddForce(buoyancyForce);
                     }
                     break;
