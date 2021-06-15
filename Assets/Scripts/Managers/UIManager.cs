@@ -23,37 +23,35 @@ namespace Managers {
         public WorldManager WorldManager;
 
         public void Start() {
-            updateScore();
-            updateLives();
-            drawRings();
+            UpdateScore();
+            UpdateLives();
+            DrawRings();
         }
 
 
-        public void playDeathAnimation() {
+        public void PlayDeathAnimation() {
             gameOverPanel.SetActive(true);
             gameOverAnimator.enabled = true;
-            gameOverAnimator.Play("Game Over");
         }
 
-        public void playWinningAnimation() {
+        public void PlayWinningAnimation() {
             winningPanel.SetActive(true);
             winningAnimator.enabled = true;
-            winningAnimator.Play("Winning");
         }
 
-        public void activateWaterEffect() {
+        public void ActivateWaterEffect() {
             waterEffect.SetActive(true);
         }
 
-        public void deactivateWaterEffect() {
+        public void DeactivateWaterEffect() {
             waterEffect.SetActive(false);
         }
 
-        public void obtainRing(Collider collider) {
+        public void ObtainRing(Collider ringCollider) {
             // Change the ring's colour from gold to white to indicate that it has been obtained
-            collider.transform.parent.GetComponent<Renderer>().material = obtainedRingMaterial;
+            ringCollider.transform.parent.GetComponent<Renderer>().material = obtainedRingMaterial;
             // And disable the ring trigger so that it doesn't get triggered again
-            collider.enabled = false;
+            ringCollider.enabled = false;
 
             // Remove one ring from the canvas UI
             RawImage lastRing = rings[rings.Count - 1];
@@ -64,7 +62,7 @@ namespace Managers {
             if (rings.Count == 0) WorldManager.openEndGate();
         }
 
-        public void drawRings() {
+        private void DrawRings() {
             // Find how many ingame rings there are
             int numRings = GameObject.FindGameObjectsWithTag("Actual Ring").Length;
 
@@ -89,19 +87,19 @@ namespace Managers {
         }
 
 
-        public void updateLives() {
+        public void UpdateLives() {
             livesText.text = Player.lives.ToString();
         }
 
-        public void updateScore() {
+        public void UpdateScore() {
             scoreText.text = Player.score.ToString();
         }
 
-        public void resetProgressBar() {
+        public void ResetProgressBar() {
             progressBar.value = 0f;
         }
 
-        public void setProgressBar(float value) {
+        public void SetProgressBar(float value) {
             progressBar.value = value;
         }
     }

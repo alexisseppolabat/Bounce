@@ -46,14 +46,14 @@ namespace Managers  {
                     break;
                 case "Pop":
                     Player.lives --;
-                    uiManager.updateLives();
+                    uiManager.UpdateLives();
 
                     // Remove any active effects so that the player doesn't respawn with the effects active
                     Player.RemoveActiveEffects();
                     if (Player.lives <= 0) {
                         // Game over animation
                         gameObject.SetActive(false);
-                        uiManager.playDeathAnimation();
+                        uiManager.PlayDeathAnimation();
                     } else {
                         // Respawn the player at either a checkpoint if they've obtained one or at the original spawn point
                         gameObject.transform.position = Player.checkpointObtained ? Player.lastCheckPoint : Player.spawnPoint;
@@ -61,7 +61,7 @@ namespace Managers  {
                     break;
                 case "Checkpoint":
                     Player.score += 500;
-                    uiManager.updateScore();
+                    uiManager.UpdateScore();
 
                     MeshRenderer checkpointRenderer = objCollider.GetComponent<MeshRenderer>();
                     if (checkpointRenderer.enabled) {
@@ -76,30 +76,30 @@ namespace Managers  {
 
                     if (isInTheMiddle) {
                         Player.score += 500;
-                        uiManager.updateScore();
-                        uiManager.obtainRing(objCollider);
+                        uiManager.UpdateScore();
+                        uiManager.ObtainRing(objCollider);
                     }
                     break;
                 case "Fly":
-                    uiManager.resetProgressBar();
+                    uiManager.ResetProgressBar();
                     Player.ActiveEffects.Add(Fly);
-                    Player.Effects[Fly].startTime();
+                    Player.Effects[Fly].StartTime();
                     break;
                 case "Fly Press":
-                    uiManager.resetProgressBar();
+                    uiManager.ResetProgressBar();
                     Player.ActiveEffects.Add(FlyPress);
-                    Player.Effects[FlyPress].startTime();
+                    Player.Effects[FlyPress].StartTime();
                     break;
                 case "Speed":
-                    uiManager.resetProgressBar();
+                    uiManager.ResetProgressBar();
                     Player.ActiveEffects.Add(Speed);
-                    Player.Effects[Speed].startTime();
+                    Player.Effects[Speed].StartTime();
                     break;
                 case "Health":
                     Player.score += 1000;
                     Player.lives ++;
-                    uiManager.updateLives();
-                    uiManager.updateScore();
+                    uiManager.UpdateLives();
+                    uiManager.UpdateScore();
 
                     // Remove the life bubble
                     objCollider.gameObject.SetActive(false);
@@ -108,8 +108,8 @@ namespace Managers  {
                     // Increase the score according to the number of lives left
                     gameObject.SetActive(false);
                     Player.score += 1000 * Player.lives;
-                    uiManager.updateScore();
-                    uiManager.playWinningAnimation();
+                    uiManager.UpdateScore();
+                    uiManager.PlayWinningAnimation();
                     break;
                 case "Water":
                     playerBody.drag = 2;
@@ -118,7 +118,7 @@ namespace Managers  {
                         float distanceFromTopBrim = transform.position.y - topBrimPosition;
                         Vector3 buoyancyForce = new Vector3(
                             0,
-                            2 * PlayerMovementManager.GRAVITY,
+                            2 * PlayerMovementManager.Gravity,
                             0
                         );
                         if (distanceFromTopBrim >= 0) buoyancyForce.y -= 10 * distanceFromTopBrim;
@@ -136,14 +136,14 @@ namespace Managers  {
             foreach (Effects effects in Player.ActiveEffects) {
                 Effect effect = Player.Effects[effects];
                 // Get the current progress value for the current effect
-                var currentProgressValue = effect.progress();
+                var currentProgressValue = effect.Progress();
                 if (currentProgressValue < 1f) {
                     if (currentProgressValue < largestProgressValue) largestProgressValue = currentProgressValue;
                     // Enact the effect so that it affects the player
-                    effect.enact();
+                    effect.Enact();
                 } else {
                     // Remove the effects of the effect from the player
-                    effect.desist();
+                    effect.Desist();
                     // Flag the effect in the list of active effects to be removed
                     expiredEffects.Add(effects);
                 }
@@ -153,7 +153,7 @@ namespace Managers  {
             expiredEffects.Clear();
 
             // Update the progress bar to display the remaining time for the newest effect
-            uiManager.setProgressBar(largestProgressValue);
+            uiManager.SetProgressBar(largestProgressValue);
         }
     }
 }

@@ -31,40 +31,41 @@ namespace Structural {
             InitEffects();
         }
 
-        private static void InitEffects() {
-            /*
+        /**
          * Initialise the activeEffects hashmap by mapping each effect from the Effects enum
          * to an Effect object which encapsulates the functionality of an effect. This functionality
          * includes the enacting function (to apply the effect to the player), the desist function
          * (to remove the effect from the player) and a flag to indicate whether that effect is active
          */
+        private static void InitEffects() {
+            if (Effects.Count != 0) return;
             // TODO Change the fly mechanic from changing gravity to just adding a vertical force of 2*GRAVITY
             Effects.Add(Fly, new Effect(FlyTime,
                 () => {
-                    if (Physics.gravity.y == -GRAVITY) {
-                        Physics.gravity = new Vector3(0, GRAVITY, 0);
+                    if (Physics.gravity.y == -Gravity) {
+                        Physics.gravity = new Vector3(0, Gravity, 0);
                     }
                 },
                 () => {
-                    if (Physics.gravity.y == GRAVITY) {
-                        Physics.gravity = new Vector3(0, -GRAVITY, 0);
+                    if (Physics.gravity.y == Gravity) {
+                        Physics.gravity = new Vector3(0, -Gravity, 0);
                     }
                 }
             ));
             Effects.Add(FlyPress, new Effect(FlyTime,
                 () => {
                     if (Input.GetKey("space")) {
-                        if (Physics.gravity.y == -GRAVITY) {
-                            Physics.gravity = new Vector3(0, GRAVITY, 0);
+                        if (Physics.gravity.y == -Gravity) {
+                            Physics.gravity = new Vector3(0, Gravity, 0);
                         }
-                    } else if (Physics.gravity.y == GRAVITY && !ActiveEffects.Contains(Fly)) {
+                    } else if (Physics.gravity.y == Gravity && !ActiveEffects.Contains(Fly)) {
                         // Only stop the ball from flying if it doesn't have the flying effect active
-                        Physics.gravity = new Vector3(0, -GRAVITY, 0);
+                        Physics.gravity = new Vector3(0, -Gravity, 0);
                     }
                 },
                 () => {
-                    if (Physics.gravity.y == GRAVITY) {
-                        Physics.gravity = new Vector3(0, -GRAVITY, 0);
+                    if (Physics.gravity.y == Gravity) {
+                        Physics.gravity = new Vector3(0, -Gravity, 0);
                     }
                 }
             ));
@@ -76,7 +77,7 @@ namespace Structural {
 
         public static void RemoveActiveEffects() {
             foreach (Effects effect in ActiveEffects) {
-                Effects[effect].desist();
+                Effects[effect].Desist();
             }
 
             ActiveEffects.ExceptWith(ActiveEffects);

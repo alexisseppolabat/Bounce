@@ -4,9 +4,9 @@ using UnityEngine;
 namespace Structural {
     public class Effect {
         private float initTime;
-        private float maxDuration;
-        private Action enactFnc;
-        private Action desistFnc;
+        private readonly float maxDuration;
+        private readonly Action enactFnc;
+        private readonly Action desistFnc;
 
 
         public Effect(float maxDuration, Action enactFnc, Action desistFnc) {
@@ -15,19 +15,19 @@ namespace Structural {
             this.desistFnc = desistFnc;
         }
 
-        public void startTime() {
+        public void StartTime() {
             initTime = Time.time;
         }
 
-        public float progress() {
+        public float Progress() {
             return (Time.time - initTime) / maxDuration;
         }
 
-        public void enact() {
+        public void Enact() {
             enactFnc.Invoke();
         }
 
-        public void desist() {
+        public void Desist() {
             desistFnc.Invoke();
         }
     }
