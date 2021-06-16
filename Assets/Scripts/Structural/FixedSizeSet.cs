@@ -3,9 +3,9 @@ using System.Collections.Generic;
 namespace Structural {
     public class FixedSizeSet<T> : HashSet<T> {
         private readonly int maxSize;
-        private int size = 0;
+        private int size;
 
-        public FixedSizeSet(int maxSize) : base() {
+        public FixedSizeSet(int maxSize) {
             this.maxSize = maxSize;
         }
     

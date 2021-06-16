@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using Structural;
 using UnityEngine;
 
@@ -7,26 +6,16 @@ namespace Managers {
     public class CameraManager : MonoBehaviour {
         public UIManager uiManager;
         public Transform ballTransform;
+        public Material ballMaterial;
+
+        private static readonly HashSet<string> IgnoreList = new HashSet<string>();
         
         private float initCamRad;
-        private const float OneDegreeInRad = (Mathf.PI / 180f);
+        private const float OneDegreeInRad = Mathf.PI / 180f;
         private const float MAXVerticalAngle = 85 * OneDegreeInRad;
         private float cameraRadius;
         private float horizontalCameraAngle = 1.5f * Mathf.PI;
         private float verticalCameraAngle = 0.25f * Mathf.PI;
-        
-        private void Check(Collision collision) {
-            List<ContactPoint> contacts =  new List<ContactPoint>();
-            collision.GetContacts(contacts);
-
-            contacts.ForEach(contact => {
-                Vector3 normal = transform.TransformDirection(contact.normal);
-                // Ignore random empty collision normal vectors
-                if (normal.magnitude != 0) {
-                    Debug.Log($"{Mathf.RoundToInt(normal.x)} {Mathf.RoundToInt(normal.y)} {Mathf.RoundToInt(normal.z)}");
-                }
-            });
-        }
 
         private void UpdateCameraPosition() {
             // Make the camera focus on the player
@@ -53,13 +42,22 @@ namespace Managers {
         }
 
         private void CalcCameraRadius() {
+            // Calculate the position of the camera relative to the ball
             Vector3 relativePos = transform.position - ballTransform.position;
 
-            RaycastHit hit;
-            if (Physics.Raycast(ballTransform.position, relativePos, out hit, initCamRad + 0.5f, 1, QueryTriggerInteraction.Ignore))
-                cameraRadius = Mathf.Clamp(hit.distance, 0, initCamRad);
-            else
+            // Determine if the view from the camera to the ball has been obstructed
+            if (Physics.Raycast(ballTransform.position, relativePos, out RaycastHit hit, initCamRad + 0.5f, 1, QueryTriggerInteraction.Ignore)) {
+                if (!IgnoreList.Contains(hit.collider.tag))
+                    cameraRadius = Mathf.Clamp(hit.distance - 0.5f, 1.5f, initCamRad);
+            } else
                 cameraRadius = initCamRad;
+            
+            // If the camera is too close to the ball then make the ball transparent,
+            // so that the player can see beyond the ball
+            if (cameraRadius <= 2f)
+                StandardShaderUtils.SetTransparency(ballMaterial, Mathf.Clamp((cameraRadius - 1.5f) / 0.5f, 0.4f, 1f));
+            else
+                StandardShaderUtils.ChangeRenderMode(ballMaterial, BlendMode.Opaque);
         }
         
         private void SetInitialCameraRadius() {
@@ -69,6 +67,9 @@ namespace Managers {
         }
 
         private void Start() {
+            foreach (string ignoreTag in new [] {"Deflator", "Fly Press", "Fly", "Health", "Pop", "Inflator", "Actual Ring", "Speed"})
+                IgnoreList.Add(ignoreTag);
+
             SetInitialCameraRadius();
         }
 
@@ -92,14 +93,6 @@ namespace Managers {
             if (Player.lives != 0) {
                 if (triggerCollider.CompareTag("Water")) uiManager.ActivateWaterEffect();
             } else uiManager.DeactivateWaterEffect();
-        }
-
-        private void OnCollisionEnter(Collision collision) {
-            Check(collision);
-        }
-
-        private void OnCollisionExit(Collision collision) {
-            Check(collision);
         }
     }
 }

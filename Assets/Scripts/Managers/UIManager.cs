@@ -20,7 +20,7 @@ namespace Managers {
         public GameObject waterEffect;
         public RectTransform canvasRectTransform;
         public Material obtainedRingMaterial;
-        public WorldManager WorldManager;
+        public WorldManager worldManager;
 
         public void Start() {
             UpdateScore();
@@ -59,7 +59,7 @@ namespace Managers {
             rings.Remove(lastRing);
 
             // Open the end gate once the last ring has been gotten
-            if (rings.Count == 0) WorldManager.openEndGate();
+            if (rings.Count == 0) worldManager.openEndGate();
         }
 
         private void DrawRings() {
@@ -68,12 +68,9 @@ namespace Managers {
 
             // Place a ring image on the canvas for each ring in the game
             for (int index = 0; index < numRings; index ++) {
-                // Create a logical representation of each ring
-                RawImage newestRing = Object.Instantiate(ring);
+                // Create a logical representation of each ring and attach the ring image to the canvas
+                RawImage newestRing = Instantiate(ring, canvas.transform, true);
                 rings.Add(newestRing);
-
-                // Attach the ring image to the canvas
-                newestRing.transform.SetParent(canvas.transform);
 
                 // Attach the ring image to an anchor situated at the top left of the canvas
                 newestRing.rectTransform.anchorMin = new Vector2(0, 1);

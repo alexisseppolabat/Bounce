@@ -32,7 +32,7 @@ namespace Managers {
                 bounceMultiplier = Mathf.Abs(bounceMultiplier) * Mathf.Sign(normalDirection);
                 if (isBouncing && spacePressed) {
                     // Only allow the bounce multiplier to increase if the ball is bouncing on rubber
-                    bool isRubber = collision.collider.tag == "Rubber";
+                    bool isRubber = collision.collider.CompareTag("Rubber");
                     bounceMultiplier = isRubber ? bounceMultiplier + influence * 1.1f : gameObject.transform.localScale.x * influence * BaseInfluence;
                 } else if (!spacePressed) {
                     // Reset the bounce multiplier if the ball hits the ground/ceiling and space isn't being pressed
