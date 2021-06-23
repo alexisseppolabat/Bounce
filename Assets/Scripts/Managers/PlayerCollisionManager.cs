@@ -31,6 +31,34 @@ namespace Managers  {
         private void OnTriggerExit(Collider triggerCollider) {
             if (triggerCollider.CompareTag("Water")) playerBody.drag = 0;
         }
+        
+        private void FixedUpdate() {
+            float largestProgressValue = 1f;
+
+            // Iterate through each effect and determine each effect should still be applied to the player
+            // depending on its duration
+            foreach (Effects effects in Player.ActiveEffects) {
+                Effect effect = Player.Effects[effects];
+                // Get the current progress value for the current effect
+                var currentProgressValue = effect.Progress();
+                if (currentProgressValue < 1f) {
+                    if (currentProgressValue < largestProgressValue) largestProgressValue = currentProgressValue;
+                    // Enact the effect so that it affects the player
+                    effect.Enact();
+                } else {
+                    // Remove the effects of the effect from the player
+                    effect.Desist();
+                    // Flag the effect in the list of active effects to be removed
+                    expiredEffects.Add(effects);
+                }
+            }
+            // Remove the expired effects from the set of active effects
+            Player.ActiveEffects.ExceptWith(expiredEffects);
+            expiredEffects.Clear();
+
+            // Update the progress bar to display the remaining time for the newest effect
+            uiManager.SetProgressBar(largestProgressValue);
+        }
 
         private void HandleCollider(Collider objCollider) {
             switch (objCollider.tag) {
@@ -48,16 +76,17 @@ namespace Managers  {
                     Player.lives --;
                     uiManager.UpdateLives();
 
-                    // Remove any active effects so that the player doesn't respawn with the effects active
+                    // Remove any active effects so that the player doesn't respawn with
+                    // the effects active and also deactivate the player
                     Player.RemoveActiveEffects();
-                    if (Player.lives <= 0) {
-                        // Game over animation
-                        gameObject.SetActive(false);
-                        uiManager.PlayDeathAnimation();
-                    } else {
-                        // Respawn the player at either a checkpoint if they've obtained one or at the original spawn point
-                        gameObject.transform.position = Player.checkpointObtained ? Player.lastCheckPoint : Player.spawnPoint;
-                    }
+                    gameObject.SetActive(false);
+                    
+                    // Depending on the number of lives left; respawn or game over
+                    if (Player.lives <= 0)
+                        uiManager.PlayGameOverAnimation();
+                    else
+                        Invoke(nameof(Respawn), 1.25f);
+                    
                     break;
                 case "Checkpoint":
                     Player.score += 500;
@@ -128,32 +157,10 @@ namespace Managers  {
             }
         }
 
-        private void FixedUpdate() {
-            float largestProgressValue = 1f;
-
-            // Iterate through each effect and determine each effect should still be applied to the player
-            // depending on its duration
-            foreach (Effects effects in Player.ActiveEffects) {
-                Effect effect = Player.Effects[effects];
-                // Get the current progress value for the current effect
-                var currentProgressValue = effect.Progress();
-                if (currentProgressValue < 1f) {
-                    if (currentProgressValue < largestProgressValue) largestProgressValue = currentProgressValue;
-                    // Enact the effect so that it affects the player
-                    effect.Enact();
-                } else {
-                    // Remove the effects of the effect from the player
-                    effect.Desist();
-                    // Flag the effect in the list of active effects to be removed
-                    expiredEffects.Add(effects);
-                }
-            }
-            // Remove the expired effects from the set of active effects
-            Player.ActiveEffects.ExceptWith(expiredEffects);
-            expiredEffects.Clear();
-
-            // Update the progress bar to display the remaining time for the newest effect
-            uiManager.SetProgressBar(largestProgressValue);
+        private void Respawn() {
+            // Respawn the player at either a checkpoint if they've obtained one or at the original spawn point
+            gameObject.transform.position = Player.checkpointObtained ? Player.lastCheckPoint : Player.spawnPoint;
+            gameObject.SetActive(true);
         }
     }
 }

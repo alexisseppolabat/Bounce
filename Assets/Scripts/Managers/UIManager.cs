@@ -5,8 +5,8 @@ using UnityEngine.UI;
 
 namespace Managers {
     public class UIManager : MonoBehaviour {
-        private List<RawImage> rings = new List<RawImage>();
-        private Vector2 INIT_RING_POS = new Vector2(136, -38);
+        private readonly List<RawImage> rings = new List<RawImage>();
+        private readonly Vector2 initRingPos = new Vector2(136, -38);
 
         public Text livesText;
         public Text scoreText;
@@ -18,7 +18,6 @@ namespace Managers {
         public GameObject gameOverPanel;
         public GameObject winningPanel;
         public GameObject waterEffect;
-        public RectTransform canvasRectTransform;
         public Material obtainedRingMaterial;
         public WorldManager worldManager;
 
@@ -29,7 +28,7 @@ namespace Managers {
         }
 
 
-        public void PlayDeathAnimation() {
+        public void PlayGameOverAnimation() {
             gameOverPanel.SetActive(true);
             gameOverAnimator.enabled = true;
         }
@@ -59,7 +58,7 @@ namespace Managers {
             rings.Remove(lastRing);
 
             // Open the end gate once the last ring has been gotten
-            if (rings.Count == 0) worldManager.openEndGate();
+            if (rings.Count == 0) worldManager.OpenEndGate();
         }
 
         private void DrawRings() {
@@ -78,7 +77,7 @@ namespace Managers {
                 newestRing.rectTransform.pivot = new Vector2(0.5f, 0.5f);
 
                 // Place the ring image in the appropriate position and ensure its size is correct
-                newestRing.rectTransform.anchoredPosition = new Vector2(10 * index, 0) + INIT_RING_POS;
+                newestRing.rectTransform.anchoredPosition = new Vector2(10 * index, 0) + initRingPos;
                 newestRing.rectTransform.localScale = new Vector3(1, 1, 1);
             }
         }

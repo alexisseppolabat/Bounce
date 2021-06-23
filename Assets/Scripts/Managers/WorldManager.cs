@@ -6,20 +6,20 @@ namespace Managers {
 
         public Animator openGate;
 
-        public void openEndGate() {
+        public void OpenEndGate() {
             openGate.enabled = true;
             openGate.Play("Open Gate");
         }
 
-        public void reloadLevel() {
+        public void ReloadLevel() {
             SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
 
-        public void loadLevelSelector() {
+        public void LoadLevelSelector() {
             SceneManager.LoadScene("LevelSelector");
         }
 
-        public void loadNextLevel() {
+        public void LoadNextLevel() {
             SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex + 1);
         }
     }
