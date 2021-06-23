@@ -237,7 +237,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 3830205008099889344, guid: 15ee133a8e16d4e01839796b9a784792,
           type: 3}
-        m_MethodName: loadNextLevel
+        m_MethodName: LoadNextLevel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -370,7 +370,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 3830205008099889344, guid: 15ee133a8e16d4e01839796b9a784792,
           type: 3}
-        m_MethodName: loadLevelSelector
+        m_MethodName: LoadLevelSelector
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -577,7 +577,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 3830205008099889344, guid: 15ee133a8e16d4e01839796b9a784792,
           type: 3}
-        m_MethodName: loadLevelSelector
+        m_MethodName: LoadLevelSelector
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -705,7 +705,7 @@ MonoBehaviour:
       m_Calls:
       - m_Target: {fileID: 3830205008099889344, guid: 15ee133a8e16d4e01839796b9a784792,
           type: 3}
-        m_MethodName: reloadLevel
+        m_MethodName: ReloadLevel
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

@@ -37,6 +37,7 @@
   </PropertyGroup>
   <ItemGroup>
      <Compile Include="Assets\Scripts\Managers\CameraManager.cs" />
+     <Compile Include="Assets\Scripts\Managers\MenuManager.cs" />
      <Compile Include="Assets\Scripts\Managers\PlayerCollisionManager.cs" />
      <Compile Include="Assets\Scripts\Managers\PlayerMovementManager.cs" />
      <Compile Include="Assets\Scripts\Managers\PopBoxSlide.cs" />
