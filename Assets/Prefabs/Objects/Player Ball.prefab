@@ -124,7 +124,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3719c48a4bd844392b2d0b193d7bfa73, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiManager: {fileID: 7624044327858995526, guid: 15ee133a8e16d4e01839796b9a784792,
+  uiManager: {fileID: 4620499809800679875, guid: 7b6e5c046601e4d0383bb8eb17d8991f,
     type: 3}
   playerBody: {fileID: 8139750643916355799}
 --- !u!114 &8139750643916355796
@@ -140,4 +140,5 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   playerBody: {fileID: 8139750643916355799}
-  cameraTransform: {fileID: 0}
+  cameraTransform: {fileID: 7925104709978370038, guid: f33a12d4e13a34ba4b0549a81935520c,
+    type: 3}

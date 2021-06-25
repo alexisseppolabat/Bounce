@@ -5,20 +5,21 @@ using static Managers.PlayerMovementManager;
 using static Structural.Effects;
 
 namespace Structural {
-    public class Player {
+    public static class Player {
         private const float FlyTime = 12f;
         private const float SpeedTime = 12f; // TODO CHANGE THIS
         private const int FastSpeed = 1000;
 
     
         public static int score;
-        public static int lives;
+        public static int lives = 3;
         public const int Big = 3, Small = 2;
         public static int speed;
         public const int NormalSpeed = 600;
         public static Vector3 lastCheckPoint;
         public static Vector3 spawnPoint;
         public static bool checkpointObtained;
+        public static bool limitedLives = true;
         public static readonly Dictionary<Effects, Effect> Effects = new Dictionary<Effects, Effect>();
         public static readonly FixedSizeSet<Effects> ActiveEffects = new FixedSizeSet<Effects>(Enum.GetNames(typeof(Effects)).Length);
 

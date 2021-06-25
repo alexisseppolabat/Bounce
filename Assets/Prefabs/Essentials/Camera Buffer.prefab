@@ -59,8 +59,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4c40965eaf404ea18619844689df1b4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  uiManager: {fileID: 0}
+  uiManager: {fileID: 7624044327858995526, guid: 15ee133a8e16d4e01839796b9a784792,
+    type: 3}
   ballTransform: {fileID: 0}
+  ballMaterial: {fileID: 2100000, guid: 50419efc48f934c4abd241bdc158ac84, type: 2}
 --- !u!54 &7925104709978370043
 Rigidbody:
   m_ObjectHideFlags: 0

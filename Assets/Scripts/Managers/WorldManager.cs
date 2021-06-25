@@ -16,7 +16,7 @@ namespace Managers {
         }
 
         public void LoadLevelSelector() {
-            SceneManager.LoadScene("LevelSelector");
+            SceneManager.LoadScene("Menu");
         }
 
         public void LoadNextLevel() {

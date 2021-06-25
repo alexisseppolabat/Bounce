@@ -46,7 +46,8 @@ namespace Managers {
             Vector3 relativePos = transform.position - ballTransform.position;
 
             // Determine if the view from the camera to the ball has been obstructed
-            if (Physics.Raycast(ballTransform.position, relativePos, out RaycastHit hit, initCamRad + 0.5f, 1, QueryTriggerInteraction.Ignore)) {
+            if (Physics.Raycast(ballTransform.position, relativePos, out RaycastHit hit,
+                initCamRad + 0.5f, 1, QueryTriggerInteraction.Ignore)) {
                 if (!IgnoreList.Contains(hit.collider.tag))
                     cameraRadius = Mathf.Clamp(hit.distance - 0.5f, 1.5f, initCamRad);
             } else
@@ -78,21 +79,33 @@ namespace Managers {
         }
 
         private void OnTriggerEnter(Collider triggerCollider) {
-            if (Player.lives != 0) {
-                if (triggerCollider.CompareTag("Water")) uiManager.ActivateWaterEffect();
-            } else uiManager.DeactivateWaterEffect();
+            if (triggerCollider.CompareTag("Water")) {
+                if (!Player.limitedLives)
+                    uiManager.ActivateWaterEffect();
+                else if (Player.lives != 0)
+                    uiManager.ActivateWaterEffect();
+                else uiManager.DeactivateWaterEffect();
+            }
         }
 
         private void OnTriggerExit(Collider triggerCollider) {
-            if (Player.lives != 0) {
-                if (triggerCollider.CompareTag("Water")) uiManager.DeactivateWaterEffect();
-            } else uiManager.DeactivateWaterEffect();
+            if (triggerCollider.CompareTag("Water")) {
+                if (!Player.limitedLives)
+                    uiManager.DeactivateWaterEffect();
+                else if (Player.lives != 0)
+                    uiManager.DeactivateWaterEffect();
+                else uiManager.ActivateWaterEffect();
+            }
         }
 
         private void OnTriggerStay(Collider triggerCollider) {
-            if (Player.lives != 0) {
-                if (triggerCollider.CompareTag("Water")) uiManager.ActivateWaterEffect();
-            } else uiManager.DeactivateWaterEffect();
+            if (triggerCollider.CompareTag("Water")) {
+                if (!Player.limitedLives)
+                    uiManager.ActivateWaterEffect();
+                else if (Player.lives != 0)
+                    uiManager.ActivateWaterEffect();
+                else uiManager.DeactivateWaterEffect();
+            }
         }
     }
 }

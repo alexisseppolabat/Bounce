@@ -82,7 +82,7 @@ namespace Managers  {
                     gameObject.SetActive(false);
                     
                     // Depending on the number of lives left; respawn or game over
-                    if (Player.lives <= 0)
+                    if (Player.limitedLives && Player.lives <= 0)
                         uiManager.PlayGameOverAnimation();
                     else
                         Invoke(nameof(Respawn), 1.25f);
@@ -134,9 +134,12 @@ namespace Managers  {
                     objCollider.gameObject.SetActive(false);
                     break;
                 case "Open End":
-                    // Increase the score according to the number of lives left
                     gameObject.SetActive(false);
-                    Player.score += 1000 * Player.lives;
+                    
+                    // Only increase the score according to the number of lives
+                    // left, if the player doesn't have unlimited lives
+                    if (Player.limitedLives) Player.score += 1000 * Player.lives;
+                    
                     uiManager.UpdateScore();
                     uiManager.PlayWinningAnimation();
                     break;

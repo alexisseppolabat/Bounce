@@ -1,26 +1,33 @@
+using System;
 using System.Collections.Generic;
 using Structural;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 using UnityEngine.UI;
 
 namespace Managers {
     public class UIManager : MonoBehaviour {
         private readonly List<RawImage> rings = new List<RawImage>();
         private readonly Vector2 initRingPos = new Vector2(136, -38);
+        private static readonly int ColorID = Shader.PropertyToID("_Color");
 
         public Text livesText;
         public Text scoreText;
         public Scrollbar progressBar;
         public RawImage ring;
-        public Canvas canvas;
         public Animator gameOverAnimator;
         public Animator winningAnimator;
         public GameObject gameOverPanel;
         public GameObject winningPanel;
         public GameObject waterEffect;
-        public Material obtainedRingMaterial;
         public WorldManager worldManager;
 
+        public GameObject menu;
+        public GameObject menuPanel;
+        public GameObject optionsPanel;
+        public Slider musicSlider;
+        public Slider effectsSlider;
+        
         public void Start() {
             UpdateScore();
             UpdateLives();
@@ -48,7 +55,7 @@ namespace Managers {
 
         public void ObtainRing(Collider ringCollider) {
             // Change the ring's colour from gold to white to indicate that it has been obtained
-            ringCollider.transform.parent.GetComponent<Renderer>().material = obtainedRingMaterial;
+            ringCollider.transform.parent.GetComponent<Renderer>().material.SetColor(ColorID, Color.white);
             // And disable the ring trigger so that it doesn't get triggered again
             ringCollider.enabled = false;
 
@@ -62,13 +69,13 @@ namespace Managers {
         }
 
         private void DrawRings() {
-            // Find how many ingame rings there are
+            // Find how many in game rings there are
             int numRings = GameObject.FindGameObjectsWithTag("Actual Ring").Length;
 
             // Place a ring image on the canvas for each ring in the game
             for (int index = 0; index < numRings; index ++) {
                 // Create a logical representation of each ring and attach the ring image to the canvas
-                RawImage newestRing = Instantiate(ring, canvas.transform, true);
+                RawImage newestRing = Instantiate(ring, transform, true);
                 rings.Add(newestRing);
 
                 // Attach the ring image to an anchor situated at the top left of the canvas
@@ -82,9 +89,16 @@ namespace Managers {
             }
         }
 
+        private void Update() {
+            if (Input.GetKeyDown(KeyCode.Escape)) {
+                Time.timeScale = 0;
+                menu.SetActive(true);
+            }
+        }
+
 
         public void UpdateLives() {
-            livesText.text = Player.lives.ToString();
+            livesText.text = Player.limitedLives ? Player.lives.ToString() : "∞";
         }
 
         public void UpdateScore() {
@@ -97,6 +111,31 @@ namespace Managers {
 
         public void SetProgressBar(float value) {
             progressBar.value = value;
+        }
+
+        public void ClickResume() {
+            Time.timeScale = 1;
+            menu.SetActive(false);
+        }
+
+        public void ClickOptions() {
+            optionsPanel.SetActive(true);
+            menuPanel.SetActive(false);
+        }
+
+        public void ClickMenu() {
+            Time.timeScale = 1;
+            SceneManager.LoadScene("Scenes/Menu");
+        }
+
+        public void ClickBack() {
+            // Update the music and effects volumes
+            MenuManager.musicVolume = musicSlider.value;
+            MenuManager.effectsVolume = effectsSlider.value;
+            
+            // And go back to the menu panel
+            optionsPanel.SetActive(false);
+            menuPanel.SetActive(true);
         }
     }
 }
