@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 6925485574784163002}
   - component: {fileID: 2936590096966326890}
   - component: {fileID: 7937194854389889560}
+  - component: {fileID: 222284161111877663}
   m_Layer: 0
   m_Name: Sphere
   m_TagString: Untagged
@@ -67,7 +68,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 10303, guid: 0000000000000000f000000000000000, type: 0}
+  - {fileID: 2100000, guid: ebba0d053e33b4a35b2d80b83b2325d1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -101,6 +102,24 @@ SphereCollider:
   serializedVersion: 2
   m_Radius: 0.5
   m_Center: {x: 0, y: 0, z: 0}
+--- !u!114 &222284161111877663
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 384803490481314842}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: fad1120aaa6894d38bde5faf9edd3985, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ballTransform: {fileID: 0}
+  laser: {fileID: 2100000, guid: 484861dc831844af2ae146f2855a3da7, type: 2}
+  lag: 0.2
+  chargeTime: 1.25
+  aim: {fileID: 0}
+  fire: {fileID: 0}
 --- !u!1 &511634122070183730
 GameObject:
   m_ObjectHideFlags: 0
@@ -456,7 +475,7 @@ GameObject:
   - component: {fileID: 5690980136459664145}
   - component: {fileID: 1798126277417562788}
   - component: {fileID: 1711745647977694594}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cone
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1572,7 +1591,7 @@ GameObject:
   - component: {fileID: 2294036274168319938}
   - component: {fileID: 8886128115776432924}
   - component: {fileID: 7376957046899225480}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cylinder (1)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -1619,7 +1638,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 34c20539dec984e1b850e137d764f30c, type: 2}
+  - {fileID: 2100000, guid: ebba0d053e33b4a35b2d80b83b2325d1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -5959,7 +5978,7 @@ GameObject:
   - component: {fileID: 6676617303671721820}
   - component: {fileID: 7919581367042909779}
   - component: {fileID: 3797088447144108214}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cylinder (3)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -6006,7 +6025,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 34c20539dec984e1b850e137d764f30c, type: 2}
+  - {fileID: 2100000, guid: ebba0d053e33b4a35b2d80b83b2325d1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -10688,7 +10707,7 @@ GameObject:
   - component: {fileID: 7465026460944543461}
   - component: {fileID: 4539904912239906573}
   - component: {fileID: 8645256585349078419}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -10735,7 +10754,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 34c20539dec984e1b850e137d764f30c, type: 2}
+  - {fileID: 2100000, guid: ebba0d053e33b4a35b2d80b83b2325d1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -14802,7 +14821,7 @@ GameObject:
   - component: {fileID: 3350902845446871855}
   - component: {fileID: 6741351261745693137}
   - component: {fileID: 8552605762120594938}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cone (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15896,7 +15915,7 @@ GameObject:
   - component: {fileID: 4033629548261492322}
   - component: {fileID: 6315937975267464343}
   - component: {fileID: 7641770803059149691}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cylinder (2)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -15943,7 +15962,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 34c20539dec984e1b850e137d764f30c, type: 2}
+  - {fileID: 2100000, guid: ebba0d053e33b4a35b2d80b83b2325d1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -20010,7 +20029,7 @@ GameObject:
   - component: {fileID: 150664307217740136}
   - component: {fileID: 858303536744319920}
   - component: {fileID: 5843207950670157207}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cylinder
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -20057,7 +20076,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 34c20539dec984e1b850e137d764f30c, type: 2}
+  - {fileID: 2100000, guid: ebba0d053e33b4a35b2d80b83b2325d1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -24124,8 +24143,7 @@ GameObject:
   - component: {fileID: 4791149834877560490}
   - component: {fileID: 332336054240458774}
   - component: {fileID: 5041479177070012859}
-  - component: {fileID: 8194792643350521703}
-  m_Layer: 0
+  m_Layer: 2
   m_Name: Cylinder (4)
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -24172,7 +24190,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 34c20539dec984e1b850e137d764f30c, type: 2}
+  - {fileID: 2100000, guid: ebba0d053e33b4a35b2d80b83b2325d1, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -28226,19 +28244,6 @@ MeshCollider:
   m_Convex: 0
   m_CookingOptions: 30
   m_Mesh: {fileID: 0}
---- !u!114 &8194792643350521703
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 9097091445646053251}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: fad1120aaa6894d38bde5faf9edd3985, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  ballTransform: {fileID: 0}
 --- !u!1 &9153426693132798647
 GameObject:
   m_ObjectHideFlags: 0
@@ -28662,11 +28667,16 @@ PrefabInstance:
         type: 3}
       propertyPath: m_Materials.Array.data[0]
       value: 
-      objectReference: {fileID: 2100000, guid: 34c20539dec984e1b850e137d764f30c, type: 2}
+      objectReference: {fileID: 2100000, guid: ebba0d053e33b4a35b2d80b83b2325d1, type: 2}
     - target: {fileID: 919132149155446097, guid: f91480e00c2124846a6b37a77c8f790e,
         type: 3}
       propertyPath: m_Name
       value: dish
+      objectReference: {fileID: 0}
+    - target: {fileID: 919132149155446097, guid: f91480e00c2124846a6b37a77c8f790e,
+        type: 3}
+      propertyPath: m_Layer
+      value: 2
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: f91480e00c2124846a6b37a77c8f790e, type: 3}
