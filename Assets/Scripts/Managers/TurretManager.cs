@@ -1,18 +1,30 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using UnityEngine;
 
 namespace Managers {
     public class TurretManager : MonoBehaviour {
         public Transform ballTransform;
-        public Material laser;
+        public GameObject laser;
+        public Renderer diamondRendererOne;
+        public Renderer diamondRendererTwo;
+        public Material diamondUncharged;
+        public Material diamondCharging;
+        public Material diamondFiring;
+        
+        
         public float lag = 0.2f;
         public float chargeTime = 1.25f;
+        public float firingThickness = 10f;
+        public float aimingThickness = 1f;
 
-        private bool isAbove;
+        private float startTime;
+        private float thickness;
 
-        public Transform aim;
-        public Transform fire;
-        
+        private void Start() {
+            thickness = aimingThickness;
+        }
+
         private void FixedUpdate() {
             StartCoroutine(nameof(UpdatePosition));
         }
@@ -26,47 +38,36 @@ namespace Managers {
             yield return new WaitForSeconds(lag);
             
             if (target.y >= transform.position.y) {
-                transform.LookAt(target);
                 
                 if (Physics.Raycast(position, offset, out RaycastHit hit, Mathf.Infinity)) {
-                    DrawLine(position, hit.point, Color.red);
-                    aim.position = hit.point;
-                    isAbove = true;
-                    yield return new WaitForSeconds(chargeTime);
-                    
-
-                    // Update position again and ensure the ball hasn't dropped too far
-                    target = ballTransform.position;
-                    if (target.y < transform.position.y) yield break;
-                    
-                    yield return new WaitForSeconds(lag);
-                    if (target.y >= transform.position.y && Physics.Raycast(position, offset, out hit, Mathf.Infinity)) {
-                        DrawLine(position, hit.point, Color.red, 0.2f);
-                        fire.position = hit.point;
+                    if (!laser.activeSelf) {
+                        laser.SetActive(true);
+                        startTime = Time.time;
+                        diamondRendererOne.material = diamondCharging;
+                        diamondRendererTwo.material = diamondCharging;
                     }
-                }
+
+                    if (Time.time - startTime >= chargeTime) {
+                        thickness = firingThickness;
+                        laser.tag = "Pop";
+                        diamondRendererOne.material = diamondFiring;
+                        diamondRendererTwo.material = diamondFiring;
+                    }
+
+                    laser.transform.localScale = new Vector3(thickness, hit.distance * 10, thickness);
+                } 
             } else {
-                isAbove = false;
+                laser.SetActive(false);
+                laser.tag = "Untagged";
+                diamondRendererOne.material = diamondUncharged;
+                diamondRendererTwo.material = diamondUncharged;
+
                 target.y = transform.position.y;
-                transform.LookAt(target);
+                thickness = aimingThickness;
+                startTime = Mathf.Infinity;
             }
-        }
-        
-        private void DrawLine(Vector3 start, Vector3 end, Color color, float thickness = 0.01f) {
-            GameObject myLine = new GameObject();
-            
-            myLine.transform.position = start;
-            myLine.AddComponent<LineRenderer>();
-            
-            LineRenderer renderer = myLine.GetComponent<LineRenderer>();
-            
-            renderer.material = laser;
-            renderer.SetColors(color, color);
-            renderer.SetWidth(thickness, thickness);
-            renderer.SetPosition(0, start);
-            renderer.SetPosition(1, end);
-            
-            Destroy(myLine, 0.01f);
+
+            transform.LookAt(target);
         }
     }
 }
