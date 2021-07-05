@@ -60,7 +60,7 @@ MeshRenderer:
   m_RenderingLayerMask: 1
   m_RendererPriority: 0
   m_Materials:
-  - {fileID: 2100000, guid: 484861dc831844af2ae146f2855a3da7, type: 2}
+  - {fileID: 2100000, guid: a2030d0ce77ed458ca309f4220c3160e, type: 2}
   m_StaticBatchInfo:
     firstSubMesh: 0
     subMeshCount: 0
@@ -4233,6 +4233,9 @@ MonoBehaviour:
   laser: {fileID: 152269857080965875}
   diamondRendererOne: {fileID: 5690980136459664145}
   diamondRendererTwo: {fileID: 3350902845446871855}
+  laserRenderer: {fileID: 1773798116231772685}
+  greendot: {fileID: 2100000, guid: a2030d0ce77ed458ca309f4220c3160e, type: 2}
+  reddot: {fileID: 2100000, guid: 484861dc831844af2ae146f2855a3da7, type: 2}
   diamondUncharged: {fileID: 2100000, guid: 145e08431a72449fbbab76c70d2d11fb, type: 2}
   diamondCharging: {fileID: 2100000, guid: ea4757838e7854887b1bf133cb812f7f, type: 2}
   diamondFiring: {fileID: 2100000, guid: 484861dc831844af2ae146f2855a3da7, type: 2}

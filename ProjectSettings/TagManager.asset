@@ -22,6 +22,7 @@ TagManager:
   - Open End
   - Camera Buffer
   - Water
+  - Platform
   layers:
   - Default
   - TransparentFX
