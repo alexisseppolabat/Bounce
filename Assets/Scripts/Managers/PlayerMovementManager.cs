@@ -8,6 +8,7 @@ namespace Managers {
         public Rigidbody playerBody;
         public Transform cameraTransform;
 
+        private Transform originalParent;
         private float influence;
         private const float BaseInfluence = 2f;
         private float bounceMultiplier;
@@ -45,6 +46,8 @@ namespace Managers {
 
 
         private void Start() {
+            originalParent = transform.parent;
+            
             Vector3 position = playerBody.transform.position;
             Player.spawnPoint.Set(
                 position.x,
@@ -69,7 +72,12 @@ namespace Managers {
             ));
         }
 
-        private void OnCollisionEnter(Collision collision) { CheckJump(collision); }
+        private void OnCollisionEnter(Collision collision) {
+            if (collision.collider.CompareTag("Platform"))
+                transform.SetParent(collision.collider.transform);
+            
+            CheckJump(collision);
+        }
         private void OnCollisionStay(Collision collision) {
             // The ball is not bouncing if it is touching its ground (which can be either the ceiling or floor 
             // depending on whether the ball is flying or not, which will determine the sign of the influence variable)
@@ -78,6 +86,8 @@ namespace Managers {
             CheckJump(collision);
         }
         private void OnCollisionExit(Collision collision) {
+            transform.SetParent(originalParent);
+            
             // The ball cannot jump and is thus considered to be bouncing if it isn't touching anything or
             // has just left its ground (which, again, can be either the floor or the ceiling)
             if (
