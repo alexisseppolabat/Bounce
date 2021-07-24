@@ -73,9 +73,6 @@ namespace Managers {
         }
 
         private void OnCollisionEnter(Collision collision) {
-            if (collision.collider.CompareTag("Platform"))
-                transform.SetParent(collision.collider.transform);
-            
             CheckJump(collision);
         }
         private void OnCollisionStay(Collision collision) {

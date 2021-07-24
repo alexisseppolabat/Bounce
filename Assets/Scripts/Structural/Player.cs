@@ -16,9 +16,7 @@ namespace Structural {
         public const int Big = 3, Small = 2;
         public static int speed;
         public const int NormalSpeed = 600;
-        public static Vector3 lastCheckPoint;
         public static Vector3 spawnPoint;
-        public static bool checkpointObtained;
         public static bool limitedLives = true;
         public static readonly Dictionary<Effects, Effect> Effects = new Dictionary<Effects, Effect>();
         public static readonly FixedSizeSet<Effects> ActiveEffects = new FixedSizeSet<Effects>(Enum.GetNames(typeof(Effects)).Length);
@@ -27,7 +25,6 @@ namespace Structural {
             lives = 3;
             score = 0;
             speed = NormalSpeed;
-            checkpointObtained = false;
 
             InitEffects();
         }

@@ -96,8 +96,7 @@ namespace Managers  {
                     if (checkpointRenderer.enabled) {
                         checkpointRenderer.enabled = false;
                         objCollider.enabled = false;
-                        Player.lastCheckPoint = objCollider.transform.position;
-                        Player.checkpointObtained = true;
+                        Player.spawnPoint = objCollider.transform.position;
                     }
                     break;
                 case "Ring":
@@ -157,12 +156,15 @@ namespace Managers  {
                         playerBody.AddForce(buoyancyForce);
                     }
                     break;
+                case "Platform":
+                    transform.SetParent(objCollider.transform);
+                    break;
             }
         }
 
         private void Respawn() {
             // Respawn the player at either a checkpoint if they've obtained one or at the original spawn point
-            gameObject.transform.position = Player.checkpointObtained ? Player.lastCheckPoint : Player.spawnPoint;
+            gameObject.transform.position = Player.spawnPoint;
             gameObject.SetActive(true);
         }
     }
