@@ -1,10 +1,19 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 
 namespace Managers {
     public class WorldManager : MonoBehaviour {
 
         public Animator openGate;
+        public UIManager uiManager;
+
+        private void Start() {
+            // Initialise all of the player values before initialising the UI manager
+            Structural.Player.Init();
+            uiManager.Init();
+        }
+
 
         public void OpenEndGate() {
             openGate.enabled = true;

@@ -10,12 +10,6 @@ namespace Managers  {
 
         private readonly HashSet<Effects> expiredEffects = new HashSet<Effects>();
 
-
-        private void Start() {
-            // Initialise all of the player values
-            Player.Init();
-        }
-
         private void OnCollisionEnter(Collision collision) {
             HandleCollider(collision.collider);
         }

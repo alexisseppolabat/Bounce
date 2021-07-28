@@ -28,7 +28,7 @@ namespace Managers {
         public Slider musicSlider;
         public Slider effectsSlider;
         
-        public void Start() {
+        public void Init() {
             UpdateScore();
             UpdateLives();
             DrawRings();
