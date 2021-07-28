@@ -33,8 +33,7 @@ namespace Managers {
             UpdateLives();
             DrawRings();
         }
-
-
+        
         public void PlayGameOverAnimation() {
             gameOverPanel.SetActive(true);
             gameOverAnimator.enabled = true;
